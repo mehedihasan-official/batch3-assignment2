@@ -1,3 +1,5 @@
+import { Model } from "mongoose";
+
 export type TVariant = {
     type: string;
     value: string;
@@ -13,7 +15,12 @@ export type Tproduct = {
     description: string;
     price: number;
     category: string;
-    tags: string[];
-    variations: TVariant[];
+    tags?: string[];
+    variations?: TVariant[];
     inventory: TInventory;
+}
+
+//for creating static:
+export interface IProductModel extends Model<Tproduct> {
+    isProductExist(name: string): Promise<Tproduct | null>;
 }

@@ -1,22 +1,27 @@
-import { Schema } from "mongoose";
+import { Schema, model, Model } from "mongoose";
 import { Tproduct } from "../interfaces/product.interface";
-
-// Variant Schema
-const variantSchema = new Schema(
+/**
+ * Variation Sub Schema
+ */
+const variationSchema = new Schema(
   {
     type: {
       type: String,
-      required: [true, "Variant type is required"],
+      required: [true, "Variation type is required"],
+      trim: true,
     },
     value: {
       type: String,
-      required: [true, "Variant value is required"],
+      required: [true, "Variation value is required"],
+      trim: true,
     },
   },
   { _id: false }
 );
 
-// Inventory Schema
+/**
+ * Inventory Sub Schema
+ */
 const inventorySchema = new Schema(
   {
     quantity: {
@@ -24,7 +29,7 @@ const inventorySchema = new Schema(
       required: [true, "Inventory quantity is required"],
       min: 0,
     },
-    inStoke: {
+    inStock: {
       type: Boolean,
       required: [true, "Inventory stock status is required"],
     },
@@ -32,17 +37,21 @@ const inventorySchema = new Schema(
   { _id: false }
 );
 
-// Product Schema
+/**
+ * Product Schema
+ */
 const productSchema = new Schema<Tproduct>(
   {
     name: {
       type: String,
       required: [true, "Product name is required"],
+      unique: true,
       trim: true,
     },
     description: {
       type: String,
       required: [true, "Product description is required"],
+      trim: true,
     },
     price: {
       type: Number,
@@ -52,14 +61,17 @@ const productSchema = new Schema<Tproduct>(
     category: {
       type: String,
       required: [true, "Product category is required"],
+      trim: true,
     },
     tags: {
       type: [String],
       default: [],
+      required: false,
     },
     variations: {
-      type: [variantSchema],
+      type: [variationSchema],
       default: [],
+      required: false,
     },
     inventory: {
       type: inventorySchema,
@@ -71,4 +83,23 @@ const productSchema = new Schema<Tproduct>(
   }
 );
 
-export default productSchema;
+/**
+ * Static Method: Check if product exists by name
+ */
+productSchema.statics.isProductExist = async function (
+  name: string
+): Promise<Tproduct | null> {
+  return this.findOne({ name });
+};
+
+/**
+ * Product Model Type
+ */
+interface ProductModel extends Model<Tproduct> {
+  isProductExist(name: string): Promise<Tproduct | null>;
+}
+
+export const ProductData = model<Tproduct, ProductModel>(
+  "Product",
+  productSchema
+);
