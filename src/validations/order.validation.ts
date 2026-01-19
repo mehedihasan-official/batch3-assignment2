@@ -1,22 +1,12 @@
-import { z } from "zod";
-import { Types } from "mongoose";
+import { Types } from 'mongoose';
+import { z } from 'zod';
 
 export const orderValidationSchema = z.object({
-  email: z
-    .string()
-    .email("Invalid email address"),
+  email: z.string().email('Invalid email address'),
 
-  productId: z
-    .string()
-    .refine((val) => Types.ObjectId.isValid(val), {
-      message: "Invalid product ID",
-    }),
-
-  price: z
-    .number()
-    .min(0, "Order price cannot be negative"),
-
-  quantity: z
-    .number()
-    .min(1, "Quantity must be at least 1"),
+  productId: z.string().refine((val) => Types.ObjectId.isValid(val), {
+    message: 'Invalid product ID',
+  }),
+  price: z.number().min(0, 'Order price cannot be negative'),
+  quantity: z.number().min(1, "Quantity must be at least 1"),
 });

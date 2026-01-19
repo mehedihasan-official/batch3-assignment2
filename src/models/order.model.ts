@@ -1,6 +1,9 @@
-import { Schema } from "mongoose";
+import { Schema, model, Model } from "mongoose";
 import { TOrder } from "../interfaces/order.interface";
 
+/**
+ * Order Schema
+ */
 const orderSchema = new Schema<TOrder>(
   {
     email: {
@@ -12,7 +15,7 @@ const orderSchema = new Schema<TOrder>(
 
     productId: {
       type: Schema.Types.ObjectId,
-      ref: "Product", 
+      ref: "Product",
       required: [true, "Product ID is required"],
     },
 
@@ -33,4 +36,9 @@ const orderSchema = new Schema<TOrder>(
   }
 );
 
-export default orderSchema;
+/**
+ * Order Model
+ */
+export interface OrderModel extends Model<TOrder> {}
+
+export const OrderData = model<TOrder, OrderModel>("Order", orderSchema);
