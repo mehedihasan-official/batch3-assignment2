@@ -8,15 +8,14 @@ const variantSchema = z.object({
 
 // Inventory
 const inventorySchema = z.object({
-  quantity: z
-    .number()
-    .min(0, "Inventory quantity cannot be negative"),
+  quantity: z.number().min(0, "Inventory quantity cannot be negative"),
 
-  inStoke: z.boolean(),
+  inStock: z.boolean(),
 });
 
 // Product
 export const productValidationSchema = z.object({
+  id: z.string().min(1,),
   name: z.string().min(1, "Product name is required"),
 
   description: z.string().min(1, "Product description is required"),

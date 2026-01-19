@@ -1,5 +1,6 @@
-import { Schema, model, Model } from "mongoose";
-import { Tproduct } from "../interfaces/product.interface";
+import { Schema, model, Model, Document } from "mongoose";
+import { TProduct } from "../interfaces/product.interface";
+
 /**
  * Variation Sub Schema
  */
@@ -38,9 +39,14 @@ const inventorySchema = new Schema(
 );
 
 /**
+ * Product Document Type
+ */
+export type ProductDocument = TProduct & Document;
+
+/**
  * Product Schema
  */
-const productSchema = new Schema<Tproduct>(
+const productSchema = new Schema<ProductDocument>(
   {
     name: {
       type: String,
@@ -66,12 +72,10 @@ const productSchema = new Schema<Tproduct>(
     tags: {
       type: [String],
       default: [],
-      required: false,
     },
     variations: {
       type: [variationSchema],
       default: [],
-      required: false,
     },
     inventory: {
       type: inventorySchema,
@@ -84,22 +88,22 @@ const productSchema = new Schema<Tproduct>(
 );
 
 /**
- * Static Method: Check if product exists by name
+ * Static Method
  */
 productSchema.statics.isProductExist = async function (
   name: string
-): Promise<Tproduct | null> {
+): Promise<ProductDocument | null> {
   return this.findOne({ name });
 };
 
 /**
- * Product Model Type
+ * Model Interface
  */
-interface ProductModel extends Model<Tproduct> {
-  isProductExist(name: string): Promise<Tproduct | null>;
+interface ProductModel extends Model<ProductDocument> {
+  isProductExist(name: string): Promise<ProductDocument | null>;
 }
 
-export const ProductData = model<Tproduct, ProductModel>(
+export const ProductData = model<ProductDocument, ProductModel>(
   "Product",
   productSchema
 );

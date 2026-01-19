@@ -1,31 +1,30 @@
-import { Tproduct } from "../interfaces/product.interface";
+import { TProduct } from "../interfaces/product.interface";
 import { Types } from "mongoose";
 import { ProductData } from "../models/product.model";
 
 /**
  * Create a new product
  */
-const createProductIntoDB = async (productData: Tproduct) => {
-  // check duplicate product by name
+const createProductIntoDB = async (productData: TProduct) => {
   if (await ProductData.isProductExist(productData.name)) {
     throw new Error("Product with this name already exists");
   }
 
-  const result = await ProductData.create(productData);
-  return result;
+  return await ProductData.create(productData);
 };
 
 /**
- * Get all products
- * Supports search by searchTerm
+ * Get all products (supports search)
  */
 const getAllProductsFromDB = async (searchTerm?: string) => {
   if (searchTerm) {
+    const regex = new RegExp(searchTerm, "i");
+
     return await ProductData.find({
       $or: [
-        { name: { $regex: searchTerm, $options: "i" } },
-        { category: { $regex: searchTerm, $options: "i" } },
-        { tags: { $regex: searchTerm, $options: "i" } },
+        { name: regex },
+        { category: regex },
+        { tags: { $in: [regex] } },
       ],
     });
   }
@@ -53,15 +52,22 @@ const getSingleProductFromDB = async (id: string) => {
 /**
  * Update product by ID
  */
-const updateProductIntoDB = async (id: string, payload: Partial<Tproduct>) => {
+const updateProductIntoDB = async (
+  id: string,
+  payload: Partial<TProduct>
+) => {
   if (!Types.ObjectId.isValid(id)) {
     throw new Error("Invalid product ID");
   }
 
-  const updatedProduct = await ProductData.findByIdAndUpdate(id, payload, {
-    new: true,
-    runValidators: true,
-  });
+  const updatedProduct = await ProductData.findByIdAndUpdate(
+    id,
+    payload,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
   if (!updatedProduct) {
     throw new Error("Product not found");
@@ -84,7 +90,7 @@ const deleteProductFromDB = async (id: string) => {
     throw new Error("Product not found");
   }
 
-  return null;
+  return deletedProduct;
 };
 
 export const ProductService = {
