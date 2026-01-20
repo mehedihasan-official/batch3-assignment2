@@ -13,4 +13,4 @@ router.post("/api/orders", OrderController.createOrder);
 
 router.get("/api/orders", OrderController.getAllOrders);
 
-export default router;
+export const OrderRoutes =  router;

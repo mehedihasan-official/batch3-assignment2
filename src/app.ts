@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors';
-import orderRoutes from './routes/order.routes';
-import errorHandler from './middlewares/errorHandler';
 import { ProductRoutes } from './routes/product.routes';
+import errorHandler from './middlewares/errorHandler';
+import { OrderRoutes } from './routes/order.routes';
+
 
 const app = express();
 
@@ -12,7 +13,7 @@ app.use(express.json());
 
 // routes
 app.use('/api/products', ProductRoutes);
-app.use('/api/orders', orderRoutes);
+app.use('/api/orders', OrderRoutes);
 
 // not found route
 app.use((req, res) => {

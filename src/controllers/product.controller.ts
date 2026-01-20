@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { ProductService } from '../services/product.services';
-import { productValidationSchema } from '../validations/product.validation';
+
 
 /**
  * Create a new product
@@ -8,8 +8,7 @@ import { productValidationSchema } from '../validations/product.validation';
  */
 const createProduct = async (req: Request, res: Response) => {
   try {
-    const validatedData = productValidationSchema.parse(req.body);
-    const result =  await ProductService.createProductIntoDB(validatedData);
+    const result = await ProductService.createProductIntoDB(req.body);
 
     res.status(201).json({
       success: true,
@@ -23,6 +22,7 @@ const createProduct = async (req: Request, res: Response) => {
     });
   }
 };
+
 
 /**
  * Get all products (with optional search)
@@ -78,9 +78,8 @@ const getSingleProduct = async (req: Request, res: Response) => {
 const updateProduct = async (req: Request, res: Response) => {
   try {
     const id = req.params.id as string;
-    const validatedData = productValidationSchema.parse(req.body);
 
-    const result = await ProductService.updateProductIntoDB(id, validatedData);
+    const result = await ProductService.updateProductIntoDB(id, req.body);
 
     res.status(200).json({
       success: true,
@@ -94,6 +93,7 @@ const updateProduct = async (req: Request, res: Response) => {
     });
   }
 };
+
 
 /**
  * Delete product

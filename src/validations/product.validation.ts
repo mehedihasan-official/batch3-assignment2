@@ -1,34 +1,56 @@
 import { z } from "zod";
 
-// Variant
+/**
+ * Variant Schema
+ */
 const variantSchema = z.object({
-  type: z.string().min(1, "Variant type is required"),
-  value: z.string().min(1, "Variant value is required"),
+  type: z.string(),
+  value: z.string(),
 });
 
-// Inventory
+/**
+ * Inventory Schema
+ */
 const inventorySchema = z.object({
-  quantity: z.number().min(0, "Inventory quantity cannot be negative"),
-
+  quantity: z.number().int().nonnegative(),
   inStock: z.boolean(),
 });
 
-// Product
-export const productValidationSchema = z.object({
-  id: z.string().min(1,),
-  name: z.string().min(1, "Product name is required"),
+/**
+ * CREATE PRODUCT (POST)
+ */
+export const createProductSchema = z.object({
+  body: z.object({
+    name: z.string(),
+    description: z.string(),
+    price: z.number(),
+    category: z.string(),
+    tags: z.array(z.string()),
+    variants: z.array(variantSchema),
+    inventory: inventorySchema,
+  }),
+});
 
-  description: z.string().min(1, "Product description is required"),
+/**
+ * UPDATE PRODUCT (PUT)
+ */
+export const updateProductSchema = z.object({
+  body: z.object({
+    name: z.string().optional(),
+    description: z.string().optional(),
+    price: z.number().optional(),
+    category: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    variants: z.array(variantSchema).optional(),
+    inventory: inventorySchema.optional(),
+  }),
+});
 
-  price: z
-    .number()
-    .min(0, "Product price cannot be negative"),
-
-  category: z.string().min(1, "Product category is required"),
-
-  tags: z.array(z.string()).optional(),
-
-  variations: z.array(variantSchema).optional(),
-
-  inventory: inventorySchema,
+/**
+ * PARAMS VALIDATION
+ */
+export const productIdSchema = z.object({
+  params: z.object({
+    id: z.string(),
+  }),
 });
