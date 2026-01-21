@@ -1,6 +1,5 @@
 import { Schema, model, Model } from "mongoose";
 import { TOrder } from "../interfaces/order.interface";
-import { OrderModel } from './order.model';
 
 /**
  * Order Schema
