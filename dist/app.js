@@ -15,6 +15,9 @@ app.use(express_1.default.json());
 // routes
 app.use('/api/products', product_routes_1.ProductRoutes);
 app.use('/api/orders', order_routes_1.OrderRoutes);
+app.get('/', (_req, res) => {
+    res.send('Ecommerce API is running 🚀');
+});
 // not found route
 app.use((req, res) => {
     res.status(404).json({
