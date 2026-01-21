@@ -1,9 +1,7 @@
 import { Document, model, Model, Schema } from 'mongoose';
 import { TProduct } from '../interfaces/product.interface';
 
-/**
- * Variation Sub Schema
- */
+//Variation Sub Schema
 const variantschema = new Schema(
   {
     type: {
@@ -20,9 +18,7 @@ const variantschema = new Schema(
   { _id: false },
 );
 
-/**
- * Inventory Sub Schema
- */
+// Inventory Sub Schema
 const inventorySchema = new Schema(
   {
     quantity: {
@@ -38,14 +34,11 @@ const inventorySchema = new Schema(
   { _id: false },
 );
 
-/**
- * Product Document Type
- */
+//Product Document Type
 export type ProductDocument = TProduct & Document;
 
-/**
- * Product Schema
- */
+//Product Schema
+
 const productSchema = new Schema<ProductDocument>(
   {
     name: {
@@ -96,9 +89,7 @@ productSchema.statics.isProductExist = async function (
   return this.findOne({ name });
 };
 
-/**
- * Model Interface
- */
+//Model Interface
 interface ProductModel extends Model<ProductDocument> {
   isProductExist(name: string): Promise<ProductDocument | null>;
 }

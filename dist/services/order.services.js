@@ -25,19 +25,15 @@ const createOrderIntoDB = async (orderData) => {
     }
     //  Reduce inventory quantity
     product.inventory.quantity -= quantity;
-    //  Update inStock status
-    if (product.inventory.quantity === 0) {
-        product.inventory.inStock = false;
-    }
+    // Update inStock status
+    product.inventory.inStock = product.inventory.quantity > 0;
     await product.save();
     //  Create order
     const order = await order_model_1.OrderData.create(orderData);
     return order;
 };
-/**
- * Get all orders
- * Optionally filter by email
- */
+//Get all orders
+//Optionally filter by email
 const getAllOrdersFromDB = async (email) => {
     if (email) {
         return await order_model_1.OrderData.find({ email });

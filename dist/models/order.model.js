@@ -2,9 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderData = void 0;
 const mongoose_1 = require("mongoose");
-/**
- * Order Schema
- */
+//Order Schema
 const orderSchema = new mongoose_1.Schema({
     email: {
         type: String,

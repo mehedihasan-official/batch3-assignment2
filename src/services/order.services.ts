@@ -31,10 +31,9 @@ const createOrderIntoDB = async (orderData: TOrder) => {
   //  Reduce inventory quantity
   product.inventory.quantity -= quantity;
 
-  //  Update inStock status
-  if (product.inventory.quantity === 0) {
-    product.inventory.inStock = false;
-  }
+ 
+  // Update inStock status
+  product.inventory.inStock = product.inventory.quantity > 0;
 
   await product.save();
 
@@ -44,10 +43,9 @@ const createOrderIntoDB = async (orderData: TOrder) => {
   return order;
 };
 
-/**
- * Get all orders
- * Optionally filter by email
- */
+//Get all orders
+//Optionally filter by email
+
 const getAllOrdersFromDB = async (email?: string) => {
   if (email) {
     return await OrderData.find({ email });
@@ -55,6 +53,7 @@ const getAllOrdersFromDB = async (email?: string) => {
 
   return await OrderData.find();
 };
+
 
 export const OrderService = {
   createOrderIntoDB,

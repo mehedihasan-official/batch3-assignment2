@@ -4,10 +4,7 @@ exports.OrderController = void 0;
 const order_validation_1 = require("../validations/order.validation");
 const order_services_1 = require("../services/order.services");
 const mongoose_1 = require("mongoose");
-/**
- * Create a new order
- * POST /api/orders
- */
+//Create a new order
 const createOrder = async (req, res) => {
     try {
         // Validate request body
@@ -30,11 +27,7 @@ const createOrder = async (req, res) => {
         });
     }
 };
-/**
- * Get all orders
- * GET /api/orders
- * Optional query: email
- */
+//Get all orders
 const getAllOrders = async (req, res) => {
     try {
         const { email } = req.query;

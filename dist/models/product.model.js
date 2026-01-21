@@ -2,9 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductData = void 0;
 const mongoose_1 = require("mongoose");
-/**
- * Variation Sub Schema
- */
+//Variation Sub Schema
 const variantschema = new mongoose_1.Schema({
     type: {
         type: String,
@@ -17,9 +15,7 @@ const variantschema = new mongoose_1.Schema({
         trim: true,
     },
 }, { _id: false });
-/**
- * Inventory Sub Schema
- */
+// Inventory Sub Schema
 const inventorySchema = new mongoose_1.Schema({
     quantity: {
         type: Number,
@@ -31,9 +27,7 @@ const inventorySchema = new mongoose_1.Schema({
         required: [true, 'Inventory stock status is required'],
     },
 }, { _id: false });
-/**
- * Product Schema
- */
+//Product Schema
 const productSchema = new mongoose_1.Schema({
     name: {
         type: String,

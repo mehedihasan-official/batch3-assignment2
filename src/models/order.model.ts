@@ -1,9 +1,7 @@
 import { Schema, model, Model } from "mongoose";
 import { TOrder } from "../interfaces/order.interface";
 
-/**
- * Order Schema
- */
+//Order Schema
 const orderSchema = new Schema<TOrder>(
   {
     email: {
@@ -37,9 +35,7 @@ const orderSchema = new Schema<TOrder>(
 );
 
 
-/**
- * Order Model
- */
+//Order Modern
 export interface OrderModel extends Model<TOrder> {}
 
 export const OrderData = model<TOrder, OrderModel>("Order", orderSchema);

@@ -3,10 +3,8 @@ import { orderValidationSchema } from "../validations/order.validation";
 import { OrderService } from "../services/order.services";
 import { Types } from "mongoose";
 
-/**
- * Create a new order
- * POST /api/orders
- */
+//Create a new order
+
 const createOrder = async (req: Request, res: Response) => {
   try {
     // Validate request body
@@ -32,11 +30,8 @@ const result = await OrderService.createOrderIntoDB(orderDataForDB);
   }
 };
 
-/**
- * Get all orders
- * GET /api/orders
- * Optional query: email
- */
+//Get all orders
+
 const getAllOrders = async (req: Request, res: Response) => {
   try {
     const { email } = req.query;

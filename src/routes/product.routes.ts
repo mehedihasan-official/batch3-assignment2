@@ -9,12 +9,10 @@ import {
 
 const router = express.Router();
 
-/**
- * Product Routes
- */
+// Product Routes
+ 
 
 // Create a new product
-// POST /api/products
 router.post(
   '/',
   validateRequest(createProductSchema),
@@ -22,11 +20,10 @@ router.post(
 );
 
 // Get all products (supports search via query ?searchTerm=iphone)
-// GET /api/products
+
 router.get('/', ProductController.getAllProduct);
 
 // Get single product by ID
-// GET /api/products/:id
 router.get(
   '/:id',
   validateRequest(productIdSchema),
@@ -34,7 +31,6 @@ router.get(
 );
 
 // Update product by ID
-// PUT /api/products/:id
 router.put(
   '/:id',
   validateRequest(updateProductSchema),
@@ -42,7 +38,6 @@ router.put(
 );
 
 // Delete product by ID
-// DELETE /api/products/:id
 router.delete(
   '/:id',
   validateRequest(productIdSchema),

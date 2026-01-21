@@ -2,23 +2,17 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.productIdSchema = exports.updateProductSchema = exports.createProductSchema = void 0;
 const zod_1 = require("zod");
-/**
- * Variant Schema
- */
+//Variant Schema
 const variantSchema = zod_1.z.object({
     type: zod_1.z.string(),
     value: zod_1.z.string(),
 });
-/**
- * Inventory Schema
- */
+//Inventory Schema
 const inventorySchema = zod_1.z.object({
     quantity: zod_1.z.number().int().nonnegative(),
     inStock: zod_1.z.boolean(),
 });
-/**
- * CREATE PRODUCT (POST)
- */
+//CREATE PRODUCT (POST)
 exports.createProductSchema = zod_1.z.object({
     body: zod_1.z.object({
         name: zod_1.z.string(),
@@ -30,9 +24,7 @@ exports.createProductSchema = zod_1.z.object({
         inventory: inventorySchema,
     }),
 });
-/**
- * UPDATE PRODUCT (PUT)
- */
+//UPDATE PRODUCT (PUT)
 exports.updateProductSchema = zod_1.z.object({
     body: zod_1.z.object({
         name: zod_1.z.string().optional(),
@@ -44,9 +36,7 @@ exports.updateProductSchema = zod_1.z.object({
         inventory: inventorySchema.optional(),
     }),
 });
-/**
- * PARAMS VALIDATION
- */
+//PARAMS VALIDATION
 exports.productIdSchema = zod_1.z.object({
     params: zod_1.z.object({
         id: zod_1.z.string(),

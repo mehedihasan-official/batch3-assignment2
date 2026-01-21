@@ -1,24 +1,20 @@
 import { z } from "zod";
 
-/**
- * Variant Schema
- */
+//Variant Schema
 const variantSchema = z.object({
   type: z.string(),
   value: z.string(),
 });
 
-/**
- * Inventory Schema
- */
+
+//Inventory Schema
 const inventorySchema = z.object({
   quantity: z.number().int().nonnegative(),
   inStock: z.boolean(),
 });
 
-/**
- * CREATE PRODUCT (POST)
- */
+
+//CREATE PRODUCT (POST)
 export const createProductSchema = z.object({
   body: z.object({
     name: z.string(),
@@ -31,9 +27,8 @@ export const createProductSchema = z.object({
   }),
 });
 
-/**
- * UPDATE PRODUCT (PUT)
- */
+
+//UPDATE PRODUCT (PUT)
 export const updateProductSchema = z.object({
   body: z.object({
     name: z.string().optional(),
@@ -48,9 +43,7 @@ export const updateProductSchema = z.object({
 
 
 
-/**
- * PARAMS VALIDATION
- */
+//PARAMS VALIDATION
 export const productIdSchema = z.object({
   params: z.object({
     id: z.string(),
