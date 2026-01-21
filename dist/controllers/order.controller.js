@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderController = void 0;
-const order_validation_1 = require("../validations/order.validation");
-const order_services_1 = require("../services/order.services");
 const mongoose_1 = require("mongoose");
+const order_services_1 = require("../services/order.services");
+const order_validation_1 = require("../validations/order.validation");
 //Create a new order
 const createOrder = async (req, res) => {
     try {
@@ -16,14 +16,14 @@ const createOrder = async (req, res) => {
         const result = await order_services_1.OrderService.createOrderIntoDB(orderDataForDB);
         res.status(201).json({
             success: true,
-            message: "Order created successfully!",
+            message: 'Order created successfully!',
             data: result,
         });
     }
     catch (err) {
         res.status(400).json({
             success: false,
-            message: err.message || "Order creation failed",
+            message: err.message || 'Order creation failed',
         });
     }
 };
@@ -34,14 +34,14 @@ const getAllOrders = async (req, res) => {
         const result = await order_services_1.OrderService.getAllOrdersFromDB(email);
         res.status(200).json({
             success: true,
-            message: "Orders fetched successfully!",
+            message: 'Orders fetched successfully!',
             data: result,
         });
     }
     catch (err) {
         res.status(500).json({
             success: false,
-            message: err.message || "Failed to fetch orders",
+            message: err.message || 'Failed to fetch orders',
         });
     }
 };

@@ -10,7 +10,6 @@ import {
 const router = express.Router();
 
 // Product Routes
- 
 
 // Create a new product
 router.post(

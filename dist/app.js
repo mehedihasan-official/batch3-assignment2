@@ -3,11 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const product_routes_1 = require("./routes/product.routes");
+const express_1 = __importDefault(require("express"));
 const errorHandler_1 = __importDefault(require("./middlewares/errorHandler"));
 const order_routes_1 = require("./routes/order.routes");
+const product_routes_1 = require("./routes/product.routes");
 const app = (0, express_1.default)();
 // middlewares
 app.use((0, cors_1.default)());
@@ -16,7 +16,7 @@ app.use(express_1.default.json());
 app.use('/api/products', product_routes_1.ProductRoutes);
 app.use('/api/orders', order_routes_1.OrderRoutes);
 app.get('/', (_req, res) => {
-    res.send('Ecommerce API is running 🚀');
+    res.send('E-commerce API is running');
 });
 // not found route
 app.use((req, res) => {

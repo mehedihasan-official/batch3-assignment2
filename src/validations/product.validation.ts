@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 //Variant Schema
 const variantSchema = z.object({
@@ -6,13 +6,11 @@ const variantSchema = z.object({
   value: z.string(),
 });
 
-
 //Inventory Schema
 const inventorySchema = z.object({
   quantity: z.number().int().nonnegative(),
   inStock: z.boolean(),
 });
-
 
 //CREATE PRODUCT (POST)
 export const createProductSchema = z.object({
@@ -27,7 +25,6 @@ export const createProductSchema = z.object({
   }),
 });
 
-
 //UPDATE PRODUCT (PUT)
 export const updateProductSchema = z.object({
   body: z.object({
@@ -40,8 +37,6 @@ export const updateProductSchema = z.object({
     inventory: inventorySchema.optional(),
   }),
 });
-
-
 
 //PARAMS VALIDATION
 export const productIdSchema = z.object({

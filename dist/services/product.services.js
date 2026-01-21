@@ -8,7 +8,7 @@ const product_model_1 = require("../models/product.model");
  */
 const createProductIntoDB = async (productData) => {
     if (await product_model_1.ProductData.isProductExist(productData.name)) {
-        throw new Error("Product with this name already exists");
+        throw new Error('Product with this name already exists');
     }
     return await product_model_1.ProductData.create(productData);
 };
@@ -17,13 +17,9 @@ const createProductIntoDB = async (productData) => {
  */
 const getAllProductsFromDB = async (searchTerm) => {
     if (searchTerm) {
-        const regex = new RegExp(searchTerm, "i");
+        const regex = new RegExp(searchTerm, 'i');
         return await product_model_1.ProductData.find({
-            $or: [
-                { name: regex },
-                { category: regex },
-                { tags: { $in: [regex] } },
-            ],
+            $or: [{ name: regex }, { category: regex }, { tags: { $in: [regex] } }],
         });
     }
     return await product_model_1.ProductData.find();
@@ -33,11 +29,11 @@ const getAllProductsFromDB = async (searchTerm) => {
  */
 const getSingleProductFromDB = async (id) => {
     if (!mongoose_1.Types.ObjectId.isValid(id)) {
-        throw new Error("Invalid product ID");
+        throw new Error('Invalid product ID');
     }
     const product = await product_model_1.ProductData.findById(id);
     if (!product) {
-        throw new Error("Product not found");
+        throw new Error('Product not found');
     }
     return product;
 };
@@ -46,14 +42,14 @@ const getSingleProductFromDB = async (id) => {
  */
 const updateProductIntoDB = async (id, payload) => {
     if (!mongoose_1.Types.ObjectId.isValid(id)) {
-        throw new Error("Invalid product ID");
+        throw new Error('Invalid product ID');
     }
     const updatedProduct = await product_model_1.ProductData.findByIdAndUpdate(id, payload, {
         new: true,
         runValidators: true,
     });
     if (!updatedProduct) {
-        throw new Error("Product not found");
+        throw new Error('Product not found');
     }
     return updatedProduct;
 };
@@ -62,11 +58,11 @@ const updateProductIntoDB = async (id, payload) => {
  */
 const deleteProductFromDB = async (id) => {
     if (!mongoose_1.Types.ObjectId.isValid(id)) {
-        throw new Error("Invalid product ID");
+        throw new Error('Invalid product ID');
     }
     const deletedProduct = await product_model_1.ProductData.findByIdAndDelete(id);
     if (!deletedProduct) {
-        throw new Error("Product not found");
+        throw new Error('Product not found');
     }
     return deletedProduct;
 };

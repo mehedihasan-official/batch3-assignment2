@@ -1,8 +1,7 @@
-import { Types } from "mongoose";
-import { TOrder } from "../interfaces/order.interface";
-import { OrderData } from "../models/order.model";
-import { ProductData } from "../models/product.model";
-
+import { Types } from 'mongoose';
+import { TOrder } from '../interfaces/order.interface';
+import { OrderData } from '../models/order.model';
+import { ProductData } from '../models/product.model';
 
 /**
  * Create a new order
@@ -13,25 +12,24 @@ const createOrderIntoDB = async (orderData: TOrder) => {
 
   //  Validate productId
   if (!Types.ObjectId.isValid(productId)) {
-    throw new Error("Invalid product ID");
+    throw new Error('Invalid product ID');
   }
 
   //  Find product
   const product = await ProductData.findById(productId);
 
   if (!product) {
-    throw new Error("Product not found");
+    throw new Error('Product not found');
   }
 
   // Check inventory availability
   if (product.inventory.quantity < quantity) {
-    throw new Error("Insufficient quantity available in inventory");
+    throw new Error('Insufficient quantity available in inventory');
   }
 
   //  Reduce inventory quantity
   product.inventory.quantity -= quantity;
 
- 
   // Update inStock status
   product.inventory.inStock = product.inventory.quantity > 0;
 
@@ -53,7 +51,6 @@ const getAllOrdersFromDB = async (email?: string) => {
 
   return await OrderData.find();
 };
-
 
 export const OrderService = {
   createOrderIntoDB,

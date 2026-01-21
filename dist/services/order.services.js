@@ -12,16 +12,16 @@ const createOrderIntoDB = async (orderData) => {
     const { productId, quantity } = orderData;
     //  Validate productId
     if (!mongoose_1.Types.ObjectId.isValid(productId)) {
-        throw new Error("Invalid product ID");
+        throw new Error('Invalid product ID');
     }
     //  Find product
     const product = await product_model_1.ProductData.findById(productId);
     if (!product) {
-        throw new Error("Product not found");
+        throw new Error('Product not found');
     }
     // Check inventory availability
     if (product.inventory.quantity < quantity) {
-        throw new Error("Insufficient quantity available in inventory");
+        throw new Error('Insufficient quantity available in inventory');
     }
     //  Reduce inventory quantity
     product.inventory.quantity -= quantity;

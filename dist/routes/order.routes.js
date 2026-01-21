@@ -9,8 +9,8 @@ const order_controller_1 = require("../controllers/order.controller");
 const router = express_1.default.Router();
 // Order Routes
 // Create a new order
-router.post("/", order_controller_1.OrderController.createOrder);
+router.post('/', order_controller_1.OrderController.createOrder);
 // Get all orders
-router.get("/", order_controller_1.OrderController.getAllOrders);
+router.get('/', order_controller_1.OrderController.getAllOrders);
 exports.OrderRoutes = router;
 //# sourceMappingURL=order.routes.js.map

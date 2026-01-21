@@ -1,13 +1,13 @@
-import { TProduct } from "../interfaces/product.interface";
-import { Types } from "mongoose";
-import { ProductData } from "../models/product.model";
+import { Types } from 'mongoose';
+import { TProduct } from '../interfaces/product.interface';
+import { ProductData } from '../models/product.model';
 
 /**
  * Create a new product
  */
 const createProductIntoDB = async (productData: TProduct) => {
   if (await ProductData.isProductExist(productData.name)) {
-    throw new Error("Product with this name already exists");
+    throw new Error('Product with this name already exists');
   }
 
   return await ProductData.create(productData);
@@ -18,14 +18,10 @@ const createProductIntoDB = async (productData: TProduct) => {
  */
 const getAllProductsFromDB = async (searchTerm?: string) => {
   if (searchTerm) {
-    const regex = new RegExp(searchTerm, "i");
+    const regex = new RegExp(searchTerm, 'i');
 
     return await ProductData.find({
-      $or: [
-        { name: regex },
-        { category: regex },
-        { tags: { $in: [regex] } },
-      ],
+      $or: [{ name: regex }, { category: regex }, { tags: { $in: [regex] } }],
     });
   }
 
@@ -37,13 +33,13 @@ const getAllProductsFromDB = async (searchTerm?: string) => {
  */
 const getSingleProductFromDB = async (id: string) => {
   if (!Types.ObjectId.isValid(id)) {
-    throw new Error("Invalid product ID");
+    throw new Error('Invalid product ID');
   }
 
   const product = await ProductData.findById(id);
 
   if (!product) {
-    throw new Error("Product not found");
+    throw new Error('Product not found');
   }
 
   return product;
@@ -52,25 +48,18 @@ const getSingleProductFromDB = async (id: string) => {
 /**
  * Update product by ID
  */
-const updateProductIntoDB = async (
-  id: string,
-  payload: Partial<TProduct>
-) => {
+const updateProductIntoDB = async (id: string, payload: Partial<TProduct>) => {
   if (!Types.ObjectId.isValid(id)) {
-    throw new Error("Invalid product ID");
+    throw new Error('Invalid product ID');
   }
 
-  const updatedProduct = await ProductData.findByIdAndUpdate(
-    id,
-    payload,
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
+  const updatedProduct = await ProductData.findByIdAndUpdate(id, payload, {
+    new: true,
+    runValidators: true,
+  });
 
   if (!updatedProduct) {
-    throw new Error("Product not found");
+    throw new Error('Product not found');
   }
 
   return updatedProduct;
@@ -81,13 +70,13 @@ const updateProductIntoDB = async (
  */
 const deleteProductFromDB = async (id: string) => {
   if (!Types.ObjectId.isValid(id)) {
-    throw new Error("Invalid product ID");
+    throw new Error('Invalid product ID');
   }
 
   const deletedProduct = await ProductData.findByIdAndDelete(id);
 
   if (!deletedProduct) {
-    throw new Error("Product not found");
+    throw new Error('Product not found');
   }
 
   return deletedProduct;

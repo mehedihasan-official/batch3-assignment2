@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { ProductService } from '../services/product.services';
 
-
 /**
  * Create a new product
  * POST /api/products
@@ -22,7 +21,6 @@ const createProduct = async (req: Request, res: Response) => {
     });
   }
 };
-
 
 /**
  * Get all products (with optional search)
@@ -93,7 +91,6 @@ const updateProduct = async (req: Request, res: Response) => {
     });
   }
 };
-
 
 /**
  * Delete product

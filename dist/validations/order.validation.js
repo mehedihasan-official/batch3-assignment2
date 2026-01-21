@@ -9,6 +9,6 @@ exports.orderValidationSchema = zod_1.z.object({
         message: 'Invalid product ID',
     }),
     price: zod_1.z.number().min(0, 'Order price cannot be negative'),
-    quantity: zod_1.z.number().min(1, "Quantity must be at least 1"),
+    quantity: zod_1.z.number().min(1, 'Quantity must be at least 1'),
 });
 //# sourceMappingURL=order.validation.js.map
