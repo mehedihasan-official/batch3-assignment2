@@ -1,23 +1,23 @@
-import { Schema, model, Model, Document } from "mongoose";
-import { TProduct } from "../interfaces/product.interface";
+import { Document, model, Model, Schema } from 'mongoose';
+import { TProduct } from '../interfaces/product.interface';
 
 /**
  * Variation Sub Schema
  */
-const variationSchema = new Schema(
+const variantschema = new Schema(
   {
     type: {
       type: String,
-      required: [true, "Variation type is required"],
+      required: [true, 'Variation type is required'],
       trim: true,
     },
     value: {
       type: String,
-      required: [true, "Variation value is required"],
+      required: [true, 'Variation value is required'],
       trim: true,
     },
   },
-  { _id: false }
+  { _id: false },
 );
 
 /**
@@ -27,15 +27,15 @@ const inventorySchema = new Schema(
   {
     quantity: {
       type: Number,
-      required: [true, "Inventory quantity is required"],
+      required: [true, 'Inventory quantity is required'],
       min: 0,
     },
     inStock: {
       type: Boolean,
-      required: [true, "Inventory stock status is required"],
+      required: [true, 'Inventory stock status is required'],
     },
   },
-  { _id: false }
+  { _id: false },
 );
 
 /**
@@ -50,31 +50,31 @@ const productSchema = new Schema<ProductDocument>(
   {
     name: {
       type: String,
-      required: [true, "Product name is required"],
+      required: [true, 'Product name is required'],
       unique: true,
       trim: true,
     },
     description: {
       type: String,
-      required: [true, "Product description is required"],
+      required: [true, 'Product description is required'],
       trim: true,
     },
     price: {
       type: Number,
-      required: [true, "Product price is required"],
+      required: [true, 'Product price is required'],
       min: 0,
     },
     category: {
       type: String,
-      required: [true, "Product category is required"],
+      required: [true, 'Product category is required'],
       trim: true,
     },
     tags: {
       type: [String],
       default: [],
     },
-    variations: {
-      type: [variationSchema],
+    variants: {
+      type: [variantschema],
       default: [],
     },
     inventory: {
@@ -84,14 +84,14 @@ const productSchema = new Schema<ProductDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 /**
  * Static Method
  */
 productSchema.statics.isProductExist = async function (
-  name: string
+  name: string,
 ): Promise<ProductDocument | null> {
   return this.findOne({ name });
 };
@@ -104,6 +104,6 @@ interface ProductModel extends Model<ProductDocument> {
 }
 
 export const ProductData = model<ProductDocument, ProductModel>(
-  "Product",
-  productSchema
+  'Product',
+  productSchema,
 );

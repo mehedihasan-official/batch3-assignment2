@@ -1,5 +1,6 @@
 import { Schema, model, Model } from "mongoose";
 import { TOrder } from "../interfaces/order.interface";
+import { OrderModel } from './order.model';
 
 /**
  * Order Schema
@@ -35,6 +36,7 @@ const orderSchema = new Schema<TOrder>(
     timestamps: true,
   }
 );
+
 
 /**
  * Order Model

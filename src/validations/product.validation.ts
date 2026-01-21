@@ -46,6 +46,8 @@ export const updateProductSchema = z.object({
   }),
 });
 
+
+
 /**
  * PARAMS VALIDATION
  */

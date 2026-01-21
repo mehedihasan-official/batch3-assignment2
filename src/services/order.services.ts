@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 import { TOrder } from "../interfaces/order.interface";
-import { ProductData } from "../models/product.model";
 import { OrderData } from "../models/order.model";
+import { ProductData } from "../models/product.model";
 
 
 /**

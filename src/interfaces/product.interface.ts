@@ -1,4 +1,4 @@
-import { Model } from "mongoose";
+import { Model } from 'mongoose';
 
 export type TVariant = {
   type: string;
@@ -16,7 +16,7 @@ export type TProduct = {
   price: number;
   category: string;
   tags?: string[];
-  variations?: TVariant[];
+  variants?: TVariant[];
   inventory: TInventory;
 };
 
